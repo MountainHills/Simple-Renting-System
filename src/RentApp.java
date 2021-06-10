@@ -1,4 +1,4 @@
-import GUI.LoginGUI;
+import GUI.*;
 
 /*
     This java file is responsible for initializing the Renting System.
@@ -9,6 +9,8 @@ public class RentApp {
     {
         System.out.println("This is for the world at stake.");
         
-        LoginGUI gui = new LoginGUI();
+        LoginGUI lgui = new LoginGUI();
+        lgui.launchFrame();
+        
     }
 }
