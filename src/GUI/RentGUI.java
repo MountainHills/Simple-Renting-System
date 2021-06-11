@@ -5,8 +5,18 @@
  */
 package GUI;
 
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 public class RentGUI extends javax.swing.JFrame {
 
+    // Data information
+    private static String nameInput;
+    private static float prevInput;
+    private static float currInput;
+    private static float rentInput;
+    private static int membersInput;
+    
     public RentGUI() {
         initComponents();
         
@@ -23,14 +33,14 @@ public class RentGUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         rentButton = new javax.swing.JButton();
         prevTextField = new javax.swing.JTextField();
         currentTextField = new javax.swing.JTextField();
-        waterTextField = new javax.swing.JTextField();
         membersTextField = new javax.swing.JTextField();
         errorLabel = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        rentTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Renting System");
@@ -45,8 +55,6 @@ public class RentGUI extends javax.swing.JFrame {
 
         jLabel4.setText("Current");
 
-        jLabel5.setText("Water");
-
         jLabel6.setText("Members");
 
         rentButton.setText("Finish");
@@ -58,14 +66,18 @@ public class RentGUI extends javax.swing.JFrame {
 
         membersTextField.setToolTipText("");
 
-        errorLabel.setText("The form is not complete");
+        errorLabel.setText("Type in the correct parameters");
+
+        jLabel7.setText("Rent");
+
+        rentTextField.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGap(35, 35, 35)
@@ -80,30 +92,27 @@ public class RentGUI extends javax.swing.JFrame {
                                     .addGap(112, 112, 112))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel1)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(63, 63, 63)
+                                        .addComponent(jLabel1)
+                                        .addGap(31, 31, 31)
                                         .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(jLabel6)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel5)
-                                                .addGap(31, 31, 31)))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(waterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(membersTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(prevTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
+                                    .addComponent(prevTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel7)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rentTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(54, 54, 54)
+                                .addComponent(rentButton)
+                                .addGap(44, 44, 44))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(membersTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(errorLabel)))
                 .addContainerGap(19, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(rentButton)
-                .addGap(64, 64, 64))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,17 +133,17 @@ public class RentGUI extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(waterTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel7)
+                    .addComponent(rentTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(membersTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rentButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(errorLabel)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -149,22 +158,79 @@ public class RentGUI extends javax.swing.JFrame {
     private void rentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentButtonActionPerformed
         // TODO: Checks if all TextFields have value and are valid.
         
+        try 
+        {
+            // Getting the values.
+            nameInput = nameTextField.getText();
+            prevInput = Float.parseFloat(prevTextField.getText());
+            currInput = Float.parseFloat(currentTextField.getText());
+            rentInput = Float.parseFloat(rentTextField.getText());
+            membersInput = Integer.parseInt(membersTextField.getText());
+            
+            System.out.println(nameInput);     
+            System.out.println(prevInput);
+            System.out.println(currInput);
+            System.out.println(rentInput);
+            System.out.println(membersInput);
+            
+            if (nameInput.equals("")) throw new NullPointerException();
+            if (prevInput > currInput) throw new ArithmeticException();
+            
+            new ProcessedGUI().launchFrame();
+        }
         
+        catch (NullPointerException npe) 
+        {
+            JOptionPane.showMessageDialog(null, "There should be a name.");
+        }
+        
+        catch (ArithmeticException ae) 
+        {
+            JOptionPane.showMessageDialog(null, "Current should be more than the Previous.");
+        }
+        
+        catch (Exception nfe) 
+        {
+            nfe.printStackTrace();
+            errorLabel.setVisible(true);
+        }
     }//GEN-LAST:event_rentButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField currentTextField;
+    private static javax.swing.JTextField currentTextField;
     private javax.swing.JLabel errorLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField membersTextField;
-    private javax.swing.JTextField nameTextField;
-    private javax.swing.JTextField prevTextField;
+    private javax.swing.JLabel jLabel7;
+    private static javax.swing.JTextField membersTextField;
+    private static javax.swing.JTextField nameTextField;
+    private static javax.swing.JTextField prevTextField;
     private javax.swing.JButton rentButton;
-    private javax.swing.JTextField waterTextField;
+    private static javax.swing.JTextField rentTextField;
     // End of variables declaration//GEN-END:variables
+
+    // Getters of the values.
+    public static String getNameInput() {
+        return nameInput;
+    }
+
+    public static float getPrevInput() {
+        return prevInput;
+    }
+
+    public static float getCurrInput() {
+        return currInput;
+    }
+
+    public static float getRentInput() {
+        return rentInput;
+    }
+
+    public static int getMembersInput() {
+        return membersInput;
+    }
+
 }
