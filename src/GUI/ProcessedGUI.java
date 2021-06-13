@@ -1,27 +1,13 @@
 package GUI;
 
-public class ProcessedGUI extends javax.swing.JFrame {
+import parameters.RentInformation;
 
-    //Computation
-   
-    private static float electricDifference;
-    private static float electricityTotal;
-    private static float rentTotal;
-    private static float waterTotal;
-    private static float totalBill;
+public class ProcessedGUI extends javax.swing.JFrame {
     
     public ProcessedGUI() {
         initComponents();
-   
-        electricDifference = RentGUI.getCurrInput() - RentGUI.getPrevInput();
-        electricityTotal = electricDifference * 24;
-        rentTotal = RentGUI.getRentInput();
-        waterTotal = RentGUI.getMembersInput() * 150f;
-        totalBill = electricityTotal + rentTotal + waterTotal;
         
-        System.out.println(totalBill);
-        
-        totalTextField.setText(totalBill + "");
+        totalTextField.setText(RentInformation.getTotalBill() + "");
     }
 
     @SuppressWarnings("unchecked")

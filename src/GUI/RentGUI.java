@@ -7,6 +7,7 @@ package GUI;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import parameters.RentInformation;
 
 public class RentGUI extends javax.swing.JFrame {
 
@@ -161,20 +162,12 @@ public class RentGUI extends javax.swing.JFrame {
         try 
         {
             // Getting the values.
-            nameInput = nameTextField.getText();
-            prevInput = Float.parseFloat(prevTextField.getText());
-            currInput = Float.parseFloat(currentTextField.getText());
-            rentInput = Float.parseFloat(rentTextField.getText());
-            membersInput = Integer.parseInt(membersTextField.getText());
-            
-            System.out.println(nameInput);     
-            System.out.println(prevInput);
-            System.out.println(currInput);
-            System.out.println(rentInput);
-            System.out.println(membersInput);
-            
-            if (nameInput.equals("")) throw new NullPointerException();
-            if (prevInput > currInput) throw new ArithmeticException();
+            RentInformation.setName(nameTextField.getText());       
+            RentInformation.setPreviousElectricity(Float.parseFloat(prevTextField.getText()));
+            RentInformation.setCurrentElectricity(Float.parseFloat(currentTextField.getText()));   
+            RentInformation.setRent(Float.parseFloat(rentTextField.getText()));
+            RentInformation.setMembers(Integer.parseInt(membersTextField.getText()));
+            RentInformation.processInformation();
             
             new ProcessedGUI().launchFrame();
         }
@@ -231,6 +224,10 @@ public class RentGUI extends javax.swing.JFrame {
 
     public static int getMembersInput() {
         return membersInput;
+    }
+    
+    public static void main(String[] args) {
+        new RentGUI().launchFrame();
     }
 
 }
