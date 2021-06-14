@@ -6,7 +6,6 @@
 package GUI;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import parameters.RentInformation;
 
 public class RentGUI extends javax.swing.JFrame {
@@ -175,6 +174,11 @@ public class RentGUI extends javax.swing.JFrame {
         catch (NullPointerException npe) 
         {
             JOptionPane.showMessageDialog(null, "There should be a name.");
+        }
+        
+        catch (NumberFormatException nfe) 
+        {
+            JOptionPane.showMessageDialog(null, "Input a valid value.");
         }
         
         catch (ArithmeticException ae) 

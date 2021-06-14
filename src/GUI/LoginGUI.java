@@ -2,6 +2,7 @@ package GUI;
 
 public class LoginGUI extends javax.swing.JFrame {
 
+    // Hardcoded Login Parameters.
     private final String password = "admin123";
     private final String username = "admin";
     

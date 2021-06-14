@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -31,11 +32,8 @@ public class RentFileGenerator
 
     // Data for the Second Sheet.
     private static final int[] rates = {24, 150};
-
-    public RentFileGenerator() {
-    }
     
-    public static void main(String[] args) throws FileNotFoundException, IOException 
+    public RentFileGenerator() throws FileNotFoundException, IOException 
     {
         // Creating the workbook.
         Workbook wb = new HSSFWorkbook();
@@ -78,74 +76,83 @@ public class RentFileGenerator
         // This is the actual data.
         Row row;
         Cell cell;
-        RentInformation info = new RentInformation();
-        
-        // TODO: use String formats for dyanmic formulas.
+        String formula;
         
         // Gets a new row.
         int rownum = sheet1.getLastRowNum() + 1;
+        row = sheet1.createRow(rownum);
+
         for (int i = 0; i < titles.length; i++) 
         {
             // Creates a new row.
-            row = sheet1.createRow(rownum);
             cell = row.createCell(i);
             
             switch (i) 
             {
                 case 0: 
                 {
-                    cell.setCellValue(info.getName());
+                    // Name
+                    cell.setCellValue(RentInformation.getName());
                     break;
                 }
                 case 1: 
                 {
-                    cell.setCellValue(info.getPreviousElectricity());
+                    // Previous Electricity
+                    cell.setCellValue(RentInformation.getPreviousElectricity());
                     break;
                 }
                 case 2:
                 {
-                    cell.setCellValue(info.getCurrentElectricity());
+                    // Current Electricity
+                    cell.setCellValue(RentInformation.getCurrentElectricity());
                     break;
                 }
                 case 3:
                 {
-                    // Formula here. Electric Difference
-                    cell.setCellValue(info.getPreviousElectricity());
+                    // Electric Difference
+                    formula = String.format("C%s-B%s", rownum + 1, rownum + 1);
+                    cell.setCellFormula(formula);
                     break;
                 }
                 case 4:
                 {
-                    // Formula here. Electricity Total
-                    cell.setCellValue(info.getPreviousElectricity());
+                    // Electricity Total
+                    formula = String.format("D%s*Rates!B2", rownum + 1);
+                    cell.setCellFormula(formula);
                     break;
                 }
                 case 5:
                 {
-                    cell.setCellValue(info.getRent());
+                    // Rent
+                    cell.setCellValue(RentInformation.getRent());
                     break;
                 }
                 case 6:
                 {
-                    // Formula Here. Water Total
-                    cell.setCellValue(info.getPreviousElectricity());
+                    // Water
+                    formula = String.format("H%s*Rates!B3", rownum + 1);
+                    cell.setCellFormula(formula);
                     break;
                 }
                 case 7:
                 {
-                    cell.setCellValue(info.getMembers());
+                    // Members
+                    cell.setCellValue(RentInformation.getMembers());
                     break;
                 }
                 default:
                 {
-                    // Formula Here
-                    cell.setCellValue(info.getPreviousElectricity());
+                    // Total Bill
+                    formula = "SUM(E2:G2)";
+                    formula = String.format("SUM(E%s:G%s)", rownum + 1, rownum + 1);
+                    cell.setCellFormula(formula);
                     break;
                 }
             }
             
+            sheet1.autoSizeColumn(i);
             cell.setCellStyle(styles.get("normal"));
-        }
-            
+        }       
         // This is the end of the actual data.
         
         // Creating the file.
@@ -155,6 +162,9 @@ public class RentFileGenerator
         out.close();
 
         wb.close();
+        
+        // A popup indicating the file has been created.
+        JOptionPane.showMessageDialog(null, "Your file has been generated.");
     }
     
         // Used to create the styles of respective cells to be stored in a HashMap.

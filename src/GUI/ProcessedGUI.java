@@ -1,5 +1,10 @@
 package GUI;
 
+import excelSheet.RentFileGenerator;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import parameters.RentInformation;
 
 public class ProcessedGUI extends javax.swing.JFrame {
@@ -7,7 +12,8 @@ public class ProcessedGUI extends javax.swing.JFrame {
     public ProcessedGUI() {
         initComponents();
         
-        totalTextField.setText(RentInformation.getTotalBill() + "");
+        String totalBill = String.format("%.2f", RentInformation.getTotalBill());
+        totalTextField.setText(totalBill);
     }
 
     @SuppressWarnings("unchecked")
@@ -72,7 +78,12 @@ public class ProcessedGUI extends javax.swing.JFrame {
         int choice = confirmPane.showConfirmDialog(null ,"Are you sure you want to create an Excel Workbook?", "Confirm", confirmPane.YES_NO_OPTION);
         
         if (choice == confirmPane.YES_OPTION){  
-            // Create the Excel File.
+            try
+            {
+                new RentFileGenerator();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Failed to create file. Close the Excel File.");
+            }
         }  
         
         // Confirmation Panel.
