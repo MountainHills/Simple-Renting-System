@@ -229,9 +229,4 @@ public class RentGUI extends javax.swing.JFrame {
     public static int getMembersInput() {
         return membersInput;
     }
-    
-    public static void main(String[] args) {
-        new RentGUI().launchFrame();
-    }
-
 }
